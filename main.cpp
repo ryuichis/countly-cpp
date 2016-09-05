@@ -16,12 +16,25 @@
 
 #include "countly/Countly.h"
 
+#include <iostream>
+
+using namespace std;
 using namespace countly;
 
 int main(int argc, const char **argv)
 {
+  if (argc < 3)
+  {
+    cout << "Usage: " << argv[0] << " <host> <app key>" << endl;
+    return -1;
+  }
+
   Countly countly;
-  countly.run();
+  countly.start(argv[1], argv[2]);
+  countly.recordEvent("TestEvent1");
+  countly.recordEvent("TestEvent2");
+  countly.recordEvent("TestEvent2");
+  countly.suspend();
 
   return 0;
 }

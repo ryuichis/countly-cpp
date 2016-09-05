@@ -17,13 +17,19 @@
 #ifndef COUNTLY_COUNTLY_H
 #define COUNTLY_COUNTLY_H
 
+#include <string>
+
 namespace countly
 {
 
 class Countly
 {
 public:
-    void run();
+    void start(std::string host, std::string appKey);
+    void suspend();
+
+    // events
+    void recordEvent(std::string eventKey);
 };
 
 } // end namespace countly

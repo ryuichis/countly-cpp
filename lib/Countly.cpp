@@ -16,14 +16,21 @@
 
 #include "countly/Countly.h"
 
-#include <iostream>
+#include <string>
 
 namespace countly
 {
 
-void Countly::run()
+void Countly::start(std::string host, std::string appKey)
 {
-  std::cout << "hello world!" << std::endl;
+}
+
+void Countly::suspend()
+{
+}
+
+void Countly::recordEvent(std::string eventKey)
+{
 }
 
 } // end namespace countly

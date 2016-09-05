@@ -6,5 +6,8 @@ cmake_install.cmake
 install_manifest.txt
 CTestTestfile.cmake
 
+oclint_build
+compile_commands.json
+
 build.sh
 test.sh

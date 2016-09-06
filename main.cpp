@@ -34,6 +34,9 @@ int main(int argc, const char **argv)
   countly.recordEvent("TestEvent1");
   countly.recordEvent("TestEvent2");
   countly.recordEvent("TestEvent2");
+  countly.recordEvent("日本語");
+  countly.recordEvent("简体中文");
+  countly.recordEvent("繁體中文");
   countly.suspend();
 
   return 0;

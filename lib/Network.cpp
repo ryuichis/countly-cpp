@@ -63,7 +63,7 @@ std::string Network::urlencode(const std::string &unescaped)
        i != n;
        i++)
   {
-    std::string::value_type c = (*i);
+    std::string::value_type c = (*i); //!OCLint
 
     if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
     {
@@ -91,7 +91,7 @@ bool Network::get(std::string host, std::string query)
   http << "Connection: Close\r\n";
   http << "User-Agent: countly-cpp 0.1 \r\n\r\n";
 
-  bool success = _send(socket, (char *)http.str().c_str(), http.str().size());
+  bool success = _send((char *)http.str().c_str(), http.str().size());
   if (!success)
   {
     _httpsClose(socket);
@@ -114,7 +114,7 @@ int Network::_httpConnect(std::string host)
   memset((char *) &scktAddr, 0x00, sizeof(scktAddr));
   scktAddr.sin_family = AF_INET;
   scktAddr.sin_addr.s_addr = inet_addr((char *)_getIp(host).c_str());
-  scktAddr.sin_port = htons(443);
+  scktAddr.sin_port = htons(443); //!OCLint
 
   int result = connect(sckt, (struct sockaddr *)&scktAddr, sizeof(scktAddr));
 
@@ -160,7 +160,7 @@ void Network::_httpsClose(int socket)
   _httpClose(socket);
 }
 
-bool Network::_send(int socket, char * buffer, int size)
+bool Network::_send(char * buffer, int size)
 {
   return SSL_write(_sslConnection, buffer, size) > 0;
 }
@@ -171,7 +171,7 @@ std::string Network::_getIp(std::string host)
 
   if (ent && ent->h_addr_list && ent->h_addr_list[0] && ent->h_length == 4)
   {
-    std::stringstream ip;
+    std::stringstream ip; //!OCLint
     unsigned char *addr = reinterpret_cast<unsigned char *>(ent->h_addr_list[0]);
     std::copy(addr, addr+4, std::ostream_iterator<unsigned int>(ip, "."));
     return ip.str().substr(0, ip.str().size() - 1);

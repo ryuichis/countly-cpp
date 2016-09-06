@@ -43,7 +43,7 @@ private:
   void _httpClose(int socket);
   int _httpsConnect(std::string host);
   void _httpsClose(int socket);
-  bool _send(int socket, char * buffer, int size);
+  bool _send(char * buffer, int size);
 
 private:
   std::string _getIp(std::string host);

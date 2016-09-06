@@ -30,6 +30,12 @@ ELSE()
   SET(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ENDIF()
 
+IF(APPLE)
+  # use OpenSSL from Homebrew installation due to Apple deprecated its support
+  INCLUDE_DIRECTORIES(/usr/local/opt/openssl/include)
+  LINK_DIRECTORIES(/usr/local/opt/openssl/lib)
+ENDIF()
+
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
 ADD_SUBDIRECTORY(lib)
@@ -40,4 +46,6 @@ ADD_EXECUTABLE(test-countly
 
 TARGET_LINK_LIBRARIES(test-countly
   Countly
+  ssl
+  crypto
 )

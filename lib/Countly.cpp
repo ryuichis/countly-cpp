@@ -15,18 +15,45 @@
 */
 
 #include "countly/Countly.h"
-
-#include <string>
+#include "countly/Network.h"
 
 namespace countly
 {
 
+Countly::Countly()
+{
+  _network = new Network();
+}
+
+Countly::~Countly()
+{
+  delete _network;
+}
+
 void Countly::start(std::string host, std::string appKey)
 {
+  _host = host;
+  _appKey = appKey;
+
+  std::string query = "app_key=" + appKey +
+    "&device_id=testdevice&sdk_version=16.06&begin_session=1";
+  std::string metrics = R"body({
+    "_os": "macOS",
+    "_os_version": "Sierra",
+    "_device": "Macbook Pro",
+    "_resolution": "1280x800",
+    "_app_version": "0.1"
+})body";
+
+  std::string path = "/i?" + query + "&metrics=" + _network->urlencode(metrics);
+  _network->get(_host, path);
 }
 
 void Countly::suspend()
 {
+  std::string path = "/i?app_key=" + _appKey +
+    "&device_id=testdevice&sdk_version=16.06&end_session=1";
+  _network->get(_host, path);
 }
 
 void Countly::recordEvent(std::string eventKey)

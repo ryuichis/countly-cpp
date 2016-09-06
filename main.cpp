@@ -31,9 +31,10 @@ int main(int argc, const char **argv)
 
   Countly countly;
   countly.start(argv[1], argv[2]);
-  countly.recordEvent("TestEvent1");
-  countly.recordEvent("TestEvent2");
-  countly.recordEvent("TestEvent2");
+  cout << "Start session" << endl;
+  // countly.recordEvent("TestEvent1");
+  // countly.recordEvent("TestEvent2");
+  // countly.recordEvent("TestEvent2");
   countly.suspend();
 
   return 0;

@@ -14,33 +14,39 @@
   limitations under the License.
 */
 
-#ifndef COUNTLY_COUNTLY_H
-#define COUNTLY_COUNTLY_H
+#ifndef COUNTLY_NETWORK_H
+#define COUNTLY_NETWORK_H
 
 #include <string>
+#include <openssl/ssl.h>
 
 namespace countly
 {
 
-class Network;
-
-class Countly
+class Network
 {
 private:
-  Network *_network;
-  std::string _host;
-  std::string _appKey;
+  SSL * _sslConnection;
 
 public:
-  Countly();
-  ~Countly();
+  Network();
+  ~Network();
 
 public:
-  void start(std::string host, std::string appKey);
-  void suspend();
+  bool get(std::string host, std::string query);
 
-  // events
-  void recordEvent(std::string eventKey);
+public:
+  std::string urlencode(const std::string &unescaped);
+
+private:
+  int _httpConnect(std::string host);
+  void _httpClose(int socket);
+  int _httpsConnect(std::string host);
+  void _httpsClose(int socket);
+  bool _send(int socket, char * buffer, int size);
+
+private:
+  std::string _getIp(std::string host);
 };
 
 } // end namespace countly

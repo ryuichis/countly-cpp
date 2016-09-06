@@ -36,7 +36,7 @@ void Countly::start(std::string host, std::string appKey)
   _appKey = appKey;
 
   std::string query = "app_key=" + appKey +
-    "&device_id=testdevice&sdk_version=16.06&begin_session=1";
+    "&device_id=testdevice&begin_session=1";
   std::string metrics = R"body({
     "_os": "macOS",
     "_os_version": "Sierra",
@@ -52,12 +52,16 @@ void Countly::start(std::string host, std::string appKey)
 void Countly::suspend()
 {
   std::string path = "/i?app_key=" + _appKey +
-    "&device_id=testdevice&sdk_version=16.06&end_session=1";
+    "&device_id=testdevice&end_session=1";
   _network->get(_host, path);
 }
 
 void Countly::recordEvent(std::string eventKey)
 {
+  std::string events = "[{\"key\": \"" + eventKey + "\", \"count\": 1}]";
+  std::string path = "/i?app_key=" + _appKey +
+    "&device_id=testdevice&events=" + _network->urlencode(events);
+  _network->get(_host, path);
 }
 
 } // end namespace countly

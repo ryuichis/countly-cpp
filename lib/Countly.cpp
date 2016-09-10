@@ -16,6 +16,7 @@
 
 #include "countly/Countly.h"
 #include "countly/Network.h"
+#include "countly/Metrics.h"
 
 namespace countly
 {
@@ -37,13 +38,7 @@ void Countly::start(std::string host, std::string appKey)
 
   std::string query = "app_key=" + appKey +
     "&device_id=testdevice&begin_session=1";
-  std::string metrics = R"body({
-    "_os": "macOS",
-    "_os_version": "Sierra",
-    "_device": "Macbook Pro",
-    "_resolution": "1280x800",
-    "_app_version": "0.1"
-})body";
+  std::string metrics = Metrics::toJson();
 
   std::string path = "/i?" + query + "&metrics=" + _network->urlencode(metrics);
   _network->get(_host, path);

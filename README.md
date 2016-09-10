@@ -27,8 +27,8 @@ countly-cpp is still in early development. Many requirements in [Countly SDK dev
   - [ ] session duration
   - [x] end session
 - Device metrics
-  - [ ] os
-  - [ ] os version
+  - [x] os
+  - [x] os version
   - [ ] device
   - [ ] resolution
   - [ ] carrier

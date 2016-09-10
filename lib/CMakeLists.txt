@@ -15,4 +15,5 @@
 ADD_LIBRARY(Countly
     Countly.cpp
     Network.cpp
+    Metrics.cpp
     )

@@ -31,7 +31,7 @@
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
 #include <errno.h>
-#include <iostream>
+
 namespace countly
 {
 

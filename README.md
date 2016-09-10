@@ -18,7 +18,7 @@ countly-cpp is still in early development. Many requirements in [Countly SDK dev
   - [x] https host
   - [ ] port
   - [x] app key
-  - [ ] device id
+  - [x] device id
   - [ ] country code
   - [ ] city
   - [ ] location

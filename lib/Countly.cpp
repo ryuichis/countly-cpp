@@ -17,6 +17,7 @@
 #include "countly/Countly.h"
 #include "countly/Network.h"
 #include "countly/Metrics.h"
+#include "countly/Device.h"
 
 namespace countly
 {
@@ -37,7 +38,7 @@ void Countly::start(std::string host, std::string appKey)
   _appKey = appKey;
 
   std::string query = "app_key=" + appKey +
-    "&device_id=testdevice&begin_session=1";
+    "&device_id=" + Device::id() + "&begin_session=1";
   std::string metrics = Metrics::toJson();
 
   std::string path = "/i?" + query + "&metrics=" + _network->urlencode(metrics);
@@ -47,7 +48,7 @@ void Countly::start(std::string host, std::string appKey)
 void Countly::suspend()
 {
   std::string path = "/i?app_key=" + _appKey +
-    "&device_id=testdevice&end_session=1";
+    "&device_id=" + Device::id() + "&end_session=1";
   _network->get(_host, path);
 }
 
@@ -55,7 +56,7 @@ void Countly::recordEvent(std::string eventKey)
 {
   std::string events = "[{\"key\": \"" + eventKey + "\", \"count\": 1}]";
   std::string path = "/i?app_key=" + _appKey +
-    "&device_id=testdevice&events=" + _network->urlencode(events);
+    "&device_id=" + Device::id() + "&events=" + _network->urlencode(events);
   _network->get(_host, path);
 }
 

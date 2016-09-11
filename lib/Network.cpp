@@ -64,7 +64,7 @@ std::string Network::urlencode(const std::string &unescaped)
        i != n;
        i++)
   {
-    std::string::value_type c = (*i); //!OCLint
+    std::string::value_type c = (*i); //!OCLINT
 
     if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
     {
@@ -115,7 +115,7 @@ int Network::_httpConnect(std::string host)
   memset((char *) &scktAddr, 0x00, sizeof(scktAddr));
   scktAddr.sin_family = AF_INET;
   scktAddr.sin_addr.s_addr = inet_addr((char *)_getIp(host).c_str());
-  scktAddr.sin_port = htons(443); //!OCLint
+  scktAddr.sin_port = htons(443); //!OCLINT
 
   int result = connect(sckt, (struct sockaddr *)&scktAddr, sizeof(scktAddr));
   if (result < 0 && errno != EISCONN)
@@ -171,7 +171,7 @@ std::string Network::_getIp(std::string host)
 
   if (ent && ent->h_addr_list && ent->h_addr_list[0] && ent->h_length == 4)
   {
-    std::stringstream ip; //!OCLint
+    std::stringstream ip; //!OCLINT
     for (size_t i = 0; i < 4; i++) {
       if (i != 0) {
         ip << ".";

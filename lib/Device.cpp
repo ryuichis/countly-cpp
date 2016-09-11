@@ -139,7 +139,7 @@ std::string Device::id()
     return "unknown-device-id";
   }
 
-  std::ostringstream h;
+  std::ostringstream h; //!OCLINT
   h << std::hash<std::string>{}(mac);
   return h.str();
 }

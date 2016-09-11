@@ -39,7 +39,7 @@ std::string Event::toJson()
 
   if (_segmentation.size() > 0) {
     json += ",\"segmentation\":{";
-    std::map<std::string, std::string>::iterator i = _segmentation.begin();
+    std::map<std::string, std::string>::iterator i = _segmentation.begin(); //!OCLINT
     while (i != _segmentation.end())
     {
       json += "\"" + i->first + "\":\"" + i->second + "\"";

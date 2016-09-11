@@ -173,8 +173,13 @@ std::string Network::_getIp(std::string host)
   {
     std::stringstream ip; //!OCLint
     unsigned char *addr = reinterpret_cast<unsigned char *>(ent->h_addr_list[0]);
-    std::copy(addr, addr+4, std::ostream_iterator<unsigned int>(ip, "."));
-    return ip.str().substr(0, ip.str().size() - 1);
+    for (size_t i = 0; i < 4; i++) {
+      if (i != 0) {
+        ip << ".";
+      }
+      ip << addr[i];
+    }
+    return ip.str();
   }
   // TODO: ipv6 support;
 

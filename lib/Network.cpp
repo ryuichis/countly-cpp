@@ -117,7 +117,6 @@ int Network::_httpConnect(std::string host)
   scktAddr.sin_port = htons(443); //!OCLint
 
   int result = connect(sckt, (struct sockaddr *)&scktAddr, sizeof(scktAddr));
-
   if (result < 0 && errno != EISCONN)
   {
     return -1;
@@ -172,12 +171,15 @@ std::string Network::_getIp(std::string host)
   if (ent && ent->h_addr_list && ent->h_addr_list[0] && ent->h_length == 4)
   {
     std::stringstream ip; //!OCLint
-    unsigned char *addr = reinterpret_cast<unsigned char *>(ent->h_addr_list[0]);
     for (size_t i = 0; i < 4; i++) {
       if (i != 0) {
         ip << ".";
       }
-      ip << addr[i];
+      int node = (int)ent->h_addr_list[0][i];
+      if (node < 0) {
+        node += 256;
+      }
+      ip << node;
     }
     return ip.str();
   }

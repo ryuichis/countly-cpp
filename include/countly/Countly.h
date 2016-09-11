@@ -18,6 +18,7 @@
 #define COUNTLY_COUNTLY_H
 
 #include <string>
+#include <map>
 
 namespace countly
 {
@@ -41,6 +42,11 @@ public:
 
   // events
   void recordEvent(std::string eventKey);
+  void recordEvent(std::string eventKey,
+    std::map<std::string, std::string> segmentation);
+
+private:
+  std::string queryPrefix();
 };
 
 } // end namespace countly

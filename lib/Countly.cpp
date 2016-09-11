@@ -37,27 +37,38 @@ void Countly::start(std::string host, std::string appKey)
   _host = host;
   _appKey = appKey;
 
-  std::string query = "app_key=" + appKey +
-    "&device_id=" + Device::id() + "&begin_session=1";
   std::string metrics = Metrics::toJson();
 
-  std::string path = "/i?" + query + "&metrics=" + _network->urlencode(metrics);
+  std::string path = queryPrefix() +
+    "&begin_session=1&metrics=" + _network->urlencode(metrics);
   _network->get(_host, path);
 }
 
 void Countly::suspend()
 {
-  std::string path = "/i?app_key=" + _appKey +
-    "&device_id=" + Device::id() + "&end_session=1";
+  std::string path = queryPrefix() + "&end_session=1";
   _network->get(_host, path);
 }
 
 void Countly::recordEvent(std::string eventKey)
 {
   std::string events = "[{\"key\": \"" + eventKey + "\", \"count\": 1}]";
-  std::string path = "/i?app_key=" + _appKey +
-    "&device_id=" + Device::id() + "&events=" + _network->urlencode(events);
+  std::string path = queryPrefix() + "&events=" + _network->urlencode(events);
   _network->get(_host, path);
+}
+
+void Countly::recordEvent(std::string eventKey,
+  std::map<std::string, std::string> segmentation)
+{
+  std::string events = "[{\"key\": \"" + eventKey + "\", \"count\": 1}]";
+  std::string path = queryPrefix() + "&events=" + _network->urlencode(events);
+  _network->get(_host, path);
+}
+
+std::string Countly::queryPrefix()
+{
+  std::string prefix = "/i?app_key=" + _appKey + "&device_id=" + Device::id();
+  return prefix;
 }
 
 } // end namespace countly

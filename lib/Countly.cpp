@@ -18,6 +18,7 @@
 #include "countly/Network.h"
 #include "countly/Metrics.h"
 #include "countly/Device.h"
+#include "countly/Event.h"
 
 namespace countly
 {
@@ -52,7 +53,8 @@ void Countly::suspend()
 
 void Countly::recordEvent(std::string eventKey)
 {
-  std::string events = "[{\"key\": \"" + eventKey + "\", \"count\": 1}]";
+  Event event(eventKey);
+  std::string events = "[" + event.toJson() + "]";
   std::string path = queryPrefix() + "&events=" + _network->urlencode(events);
   _network->get(_host, path);
 }
@@ -60,7 +62,8 @@ void Countly::recordEvent(std::string eventKey)
 void Countly::recordEvent(std::string eventKey,
   std::map<std::string, std::string> segmentation)
 {
-  std::string events = "[{\"key\": \"" + eventKey + "\", \"count\": 1}]";
+  Event event(eventKey, segmentation);
+  std::string events = "[" + event.toJson() + "]";
   std::string path = queryPrefix() + "&events=" + _network->urlencode(events);
   _network->get(_host, path);
 }

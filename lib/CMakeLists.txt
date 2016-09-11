@@ -17,4 +17,5 @@ ADD_LIBRARY(Countly
     Network.cpp
     Metrics.cpp
     Device.cpp
+    Event.cpp
     )

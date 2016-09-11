@@ -42,7 +42,7 @@ countly-cpp is still in early development. Many requirements in [Countly SDK dev
   - [ ] key/sum
   - [ ] key/duration
   - [ ] key/count/sum
-  - [ ] key/segmentation
+  - [x] key/segmentation
   - [ ] key/segmentation/count
   - [ ] key/segmentation/count/sum
   - [ ] key/segmentation/count/sum/duration

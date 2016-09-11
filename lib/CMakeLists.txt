@@ -18,4 +18,5 @@ ADD_LIBRARY(Countly
     Metrics.cpp
     Device.cpp
     Event.cpp
+    Version.cpp
     )

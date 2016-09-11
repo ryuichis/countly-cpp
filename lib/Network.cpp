@@ -15,6 +15,7 @@
 */
 
 #include "countly/Network.h"
+#include "countly/Version.h"
 
 #include <sstream>
 #include <iomanip>
@@ -89,7 +90,7 @@ bool Network::get(std::string host, std::string query)
   http << "GET " << query << " HTTP/1.0\r\n";
   http << "Host: " << _getIp(host) << "\r\n";
   http << "Connection: Close\r\n";
-  http << "User-Agent: countly-cpp 0.1 \r\n\r\n";
+  http << "User-Agent: " << Version::toUserAgent() << " \r\n\r\n";
 
   bool success = _send((char *)http.str().c_str(), http.str().size());
   if (!success)

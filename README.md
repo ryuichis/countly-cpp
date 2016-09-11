@@ -1,5 +1,7 @@
 # countly-cpp
 
+[![Travis CI Status](https://api.travis-ci.org/ryuichis/countly-cpp.svg?branch=master)](https://travis-ci.org/ryuichis/countly-cpp)
+
 countly-cpp is a lightweight C++ library for [Countly](http://count.ly).
 
 It is designed to have minimal dependencies, and aim to be the drop in solution for C++ projects on various environments.

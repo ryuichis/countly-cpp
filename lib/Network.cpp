@@ -17,6 +17,7 @@
 #include "countly/Network.h"
 #include "countly/Version.h"
 
+#include <cstring>
 #include <sstream>
 #include <iomanip>
 #include <unistd.h>

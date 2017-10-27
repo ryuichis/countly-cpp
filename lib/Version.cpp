@@ -1,5 +1,5 @@
 /*
-  Copyright 2016 Ryuichi Saito, LLC
+  Copyright 2016-2017 Ryuichi Creative
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@ namespace countly
 
 std::string Version::sdk()
 {
-  return "16.9";
+  return "17.10";
 }
 
 std::string Version::server()
 {
-  return "16.06";
+  return "17.09";
 }
 
 std::string Version::toUserAgent()

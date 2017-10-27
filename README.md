@@ -77,10 +77,10 @@ Check out the [main.cpp](main.cpp) in this repository for examples.
 
 ## Contact
 
-Ryuichi Saito
+Ryuichi Sai
 
 - http://github.com/ryuichis
-- ryuichi@ryuichisaito.com
+- ryuichi@ryuichisai.com
 
 ## License
 

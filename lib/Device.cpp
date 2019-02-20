@@ -35,7 +35,7 @@
 #include <netinet/ip.h>
 #include <netinet/ip_icmp.h>
 
-#ifdef __APPLE__
+#ifdef COUNTLY_BSD_SOCKETS
 #include <net/if_dl.h>
 #include <ifaddrs.h>
 #include <net/if_types.h>
@@ -48,7 +48,7 @@ std::string macAddress()
 {
   unsigned char* macAddr;
 
-#ifdef __APPLE__
+#ifdef COUNTLY_BSD_SOCKETS
 
   struct ifaddrs* ifaphead;
 

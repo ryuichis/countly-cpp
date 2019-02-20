@@ -23,13 +23,40 @@ IF(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Debug)
 ENDIF()
 
-IF(APPLE)
-  SET(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ ${CMAKE_CXX_FLAGS}")
-ELSE()
-  IF(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    SET(CMAKE_CXX_FLAGS "-stdlib=libstdc++ ${CMAKE_CXX_FLAGS}")
-  ENDIF()
-  SET(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+option(FORCE_BSD_SOCKETS "Don't check that the system supports BSD sockets, just assume it." OFF)
+
+# Set required standard to C++11.
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# If using clang, we have to link against libc++ depending on the
+# OS (at least on some systems).
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  if (APPLE)
+    # Detect OS X version. Use '/usr/bin/sw_vers -productVersion' to
+    # extract V from '10.V.x'.
+    exec_program(/usr/bin/sw_vers ARGS
+        -productVersion OUTPUT_VARIABLE MACOSX_VERSION_RAW)
+    string(REGEX REPLACE
+        "10\\.([0-9]+).*" "\\1"
+        MACOSX_VERSION
+        "${MACOSX_VERSION_RAW}")
+
+     # OSX Lion (10.7) and OS X Mountain Lion (10.8) doesn't automatically
+     # select the right stdlib.
+    if(${MACOSX_VERSION} LESS 9)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+     endif()
+  endif()
+
+endif()
+
+# Set the BSD sockets flag if we are on a BSD machine.
+IF (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR
+    CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR
+    CMAKE_SYSTEM_NAME STREQUAL "Darwin" OR
+    FORCE_BSD_SOCKETS)
+  add_definitions(-DCOUNTLY_BSD_SOCKETS)
 ENDIF()
 
 IF(CMAKE_BUILD_TYPE STREQUAL "Release")

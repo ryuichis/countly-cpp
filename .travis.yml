@@ -21,7 +21,6 @@ script:
   - cd build
   - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
   - make
-  - ./bin/test-countly ${COUNTLY_HOST} ${COUNTLY_APP_KEY}
   - cd ..
   - cp build/compile_commands.json .
   - oclint-json-compilation-database
